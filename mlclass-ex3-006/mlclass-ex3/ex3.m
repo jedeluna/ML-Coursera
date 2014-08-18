@@ -46,7 +46,8 @@ pause;
 
 %% ============ Part 2: Vectorize Logistic Regression ============
 %  In this part of the exercise, you will reuse your logistic regression
-%  code from the last exercise. You task here is to make sure that your
+%  code from thes last exercise.
+You task here is to make sure that your
 %  regularized logistic regression implementation is vectorized. After
 %  that, you will implement one-vs-all classification for the handwritten
 %  digit dataset.
