@@ -48,7 +48,9 @@ x = zeros(n, 1);
 %
 %
 
-
+for i=word_indices,
+    x(i) = 1; %cycle through word_indices, assign 1 to index i
+end
 
 
 

@@ -11,6 +11,7 @@ function [C, sigma] = dataset3Params(X, y, Xval, yval)
 C = 1;
 sigma = 0.3;
 
+
 % ====================== YOUR CODE HERE ======================
 % Instructions: Fill in this function to return the optimal C and sigma
 %               learning parameters found using the cross validation set.
@@ -24,10 +25,33 @@ sigma = 0.3;
 %
 
 
+vals = [ 0.01 0.03 0.1 0.3 1 3 10 30]';
+CSigma_predErr = [ 0 0 0 ];
 
+for i=1:length(vals),
+    tempC = vals(i); %permute through vals for C
+    
+    for j=1:length(vals),
+        tempSigma = vals(j); %permute through vals for sigma
+                
+        model= svmTrain(X, y, tempC, @(x1, x2) gaussianKernel(x1, x2, tempSigma));
+        predictions = svmPredict(model,Xval);
+        prediction_error = mean(double(predictions ~= yval));
+        
+        %array of C | sigma | prediction error
+        CSigma_predErr = [ CSigma_predErr; tempC, tempSigma, prediction_error];
+        
+        
+    end
+end
 
+%finding C and sigma for min prediction error
+CSigma_predErr = CSigma_predErr(2:end,:);
+[Y, I] = min(CSigma_predErr, [], 1);
 
-
+CSigma = CSigma_predErr(I(1,3),1:2); %determine the best C and sigma
+C = CSigma(1,1);
+sigma = CSigma(1,2);
 
 % =========================================================================
 
